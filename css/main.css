@@ -1,0 +1,65 @@
+/* CSS RESET */
+@import "reset.css";
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Montserrat:ital,wght@0,600;1,500&display=swap');
+/* DEFAULT STYLES */
+body{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+}
+
+/* MEDIA QUERIES */
+/* Mobile first, we start from the smallest viewport width */
+/* ----Index & About--------------------------------- */
+.top-nav {
+    width: 100%;
+    height: 80px;
+    background-color: white;
+    position: fixed;
+}
+#logo {
+    width: 64px;
+}
+#burger {
+    width: 44px;
+}
+/* ------------------------------------- */
+.buffer{
+    height: 100px;
+}
+.manifesto-container{
+    background-color: bisque;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+article{
+    background-color: azure
+}
+h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 10vw;
+}
+/* ------------------------------------- */
+
+.bottom-nav {
+    width: 100%;
+    height: 80px;
+    background-color: #c4c4c4;
+    position: fixed; 
+    bottom: 0;
+    display: flex;
+}
+/* ---Authors---------------------------------- */
+.author {
+    height: 3rem;
+}
+
+/* From 768px and up */
+@media (min-width: 768px) {
+}
+
+/* From 1024px and up */
+@media (min-width: 1024px) {
+}
