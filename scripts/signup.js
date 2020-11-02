@@ -23,29 +23,31 @@ class Signup {
       this.buttonInput = document.querySelector("#signup-button");
     }
     // handle the email input
-    handleEmailInput = (event) => {
-        const emailInput = event.target;
-        const email = emailInput.value;
+    handleEmailInput = () => {
+        //const emailInput = event.target;
+        const email = signup.emailInput.value;
         validator.validateValidEmail(email);
         validator.validateUniqueEmail(email);
-        this.setErrorMessages();    
+        //this.setErrorMessages();  
+        this.handlePasswordInput(); 
     };
     // handle the password input
-    handlePasswordInput = (event) => {
-        const passwordInput = event.target;
-        const repeatPasswordInput = this.repeatPasswordInput;
-        const password = passwordInput.value;
-        const repeatPassword = repeatPasswordInput.value;
+    handlePasswordInput = () => {
+        //const passwordInput = event.target;
+        const repeatPasswordInput = signup.repeatPasswordInput;
+        const password = signup.passwordInput.value;
+        const repeatPassword = signup.repeatPasswordInput.value;
         validator.validatePassword(password);
         validator.validateRepeatPassword(password, repeatPassword);
-        this.setErrorMessages();
+        //this.setErrorMessages();
+        this.handleRepeatPasswordInput();
     };
     // handle the repeat-password input
-    handleRepeatPasswordInput = (event) => {
-        const passwordInput = event.target;
-        const repeatPasswordInput = this.repeatPasswordInput;
-        const password = passwordInput.value;
-        const repeatPassword = repeatPasswordInput.value;
+    handleRepeatPasswordInput = () => {
+        //const passwordInput = event.target;
+        const repeatPasswordInput = signup.repeatPasswordInput;
+        const password = signup.passwordInput.value;
+        const repeatPassword = signup.repeatPasswordInput.value;
         validator.validatePassword(password);
         validator.validateRepeatPassword(password, repeatPassword);
         this.setErrorMessages();
@@ -58,7 +60,18 @@ class Signup {
         // returns an array of objects values (only error strings)
         const errorStringsArr = Object.values( errorsObj );
         console.log(errorStringsArr);
-        signup.emailLabel.textContent = validator.errors.invalidEmailError;
+        if (type === "email") {
+            signup.emailLabel.textContent = validator.errors.invalidEmailError;
+        }
+        //if (type === "password"){
+            signup.passwordLabel.textContent = validator.errors.passwordError;
+        //}
+        //if (type === "repeat"){
+            signup.repeatPasswordLabel.textContent = validator.errors.repeatPasswordError;
+        //}   
+
+
+        
         /*errorStringsArr.forEach( (str) => {
         const p = document.createElement('p');
         p.textContent = str;
@@ -89,10 +102,12 @@ class Signup {
     };
 
     addListeners = () => {
-        this.emailInput.addEventListener("input", this.handleEmailInput);
+        /*this.emailInput.addEventListener("input", this.handleEmailInput);
         this.passwordInput.addEventListener("input", this.handlePasswordInput);
         this.repeatPasswordInput.addEventListener("input", this.handleRepeatPasswordInput);
-        this.buttonInput.addEventListener("click", this.saveData);
+        this.buttonInput.addEventListener("click", this.saveData);*/
+        this.buttonInput.addEventListener("click", this.handleEmailInput);
+        
     }
 }
 

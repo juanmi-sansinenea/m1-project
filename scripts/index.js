@@ -3,38 +3,59 @@
 const quotes = "https://programming-quotes-api.herokuapp.com/quotes/lang/en";
 fetch(quotes, {})
 .then((response) => {
-    console.log(response);
     return response.json();
 })
 .then((data) => {
-    runProgram(data);
+    const quote = new Quote (data, 0, false);
+    quote.printCurrentQuote();
+    quote.printCurrentAuthor();
+    quote.printCurrentRating();
+    quote.togglePlay();
 })
 .catch ((error) => {
-  console.log ("ERROR", error)
+  console.log ("API loading error.", error)
 });
-
-runProgram = function (data){
-  const quotesArr = data;
-  // Get authors array
-  const authorsArr = quotesArr.map ((el)=>{
-    const author = el.author;
-    return author;
-  });
-  // Get unique authors array
-  const authorsUniquesArr = [];
-  authorsArr.forEach((word)=>{
-    if (!authorsUniquesArr.includes(word)){
-      authorsUniquesArr.push(word)
-    }else if (authorsUniquesArr.includes(word)){
-      const repeatedStringsIndex = authorsUniquesArr.indexOf(word);
-      authorsUniquesArr.splice(repeatedStringsIndex, 1)
+///////////////////////////////////////////////////////////////////////////
+class Quote {
+  constructor (quotesArr, currentRecord, isPlaying){
+    this.quotesArr = quotesArr;
+    this.currentRecord = currentRecord;
+    this.isPlaying = isPlaying;
+    //
+    this.quoteSpace = document.querySelector(".quote");
+    this.authorSpace = document.querySelector(".author");
+    this.ratingSpace = document.querySelector(".heart-rating");
+  }
+  printCurrentQuote = (()=>{
+    this.quoteSpace.textContent = this.quotesArr[this.currentRecord].en;
+  })
+  printCurrentAuthor = (()=>{
+    console.log(this.quotesArr[this.currentRecord].author);
+    this.authorSpace.textContent = this.quotesArr[this.currentRecord].author;
+  })
+  printCurrentRating = (()=>{
+    console.log(this.quotesArr[this.currentRecord].rating);
+  })
+  togglePlay = (()=>{ 
+    if (this.isPlaying === false){
+      this.isPlaying = true;
+      this.intervalId = setInterval (this.nextRecord, 3000);
+    } else {
+      this.isPlaying = false;
+      clearInterval(this.intervalId);
     }
-  });
-  // Sort authors list alphabetically 
-  authorsUniquesArr.sort ()
-  
-  console.log(authorsUniquesArr);
-  
+  })
+  nextRecord = (()=>{
+    if (this.currentRecord < this.quotesArr.length){
+      this.currentRecord +=1;
+    }else if (this.currentRecord === this.quotesArr.length){
+      this.currentRecord = 0;
+    }
+    
+    this.printCurrentQuote();
+    this.printCurrentAuthor();
+    this.printCurrentRating();
+  })
 }
 
 
