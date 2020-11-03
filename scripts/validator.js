@@ -19,11 +19,13 @@ class Validator {
       this.emailExistsError = "This email address is already taken";
       this.passwordError = "Password must be at least 6 chars";
       this.repeatPasswordError = "Password and reapeat password must match!";
+      //this.errorsArr = [];
   
       
       // object with all the current errors that are shown to the user
       this.errors = {
         invalidEmailError: this.invalidEmailError,
+        emailExistsError: this.emailExistsError,
         passwordError: this.passwordError,
         repeatPasswordError: this.repeatPasswordError,
       };
@@ -35,10 +37,13 @@ class Validator {
     validateValidEmail = (email) => {
       if (this.emailSyntaxIsValid(email)) {
         // don't show the email error message - remove it from the errors to show
-        delete this.errors.invalidEmailError;
+        //delete this.errors.invalidEmailError;
+        this.errors.invalidEmailError = "Email";
+        this.errorsFlag0 = false;
       } else {
         // if the email is not valid, set the error that will be shown
         this.errors.invalidEmailError = this.invalidEmailError;
+        this.errorsFlag0 = true;
       }
     };
   
@@ -65,10 +70,13 @@ class Validator {
   
       // if email is unique (if it is not taken) - remove the error message
       if (emailUnique) {
-        delete this.errors.emailExistsError;
+        //delete this.errors.emailExistsError;
+        this.errors.emailExistsError = "Email";
+        this.errorsFlag1 = false;
       } else {
         // if the email is taken, set the error to be shown
         this.errors.emailExistsError = this.emailExistsError;
+        this.errorsFlag1 = true;
       }
     };
   
@@ -76,10 +84,13 @@ class Validator {
     validatePassword = (password) => {
       if (password.length >= 6) {
         // remove the error message
-        delete this.errors.passwordError;
+        //delete this.errors.passwordError;
+        this.errors.passwordError = "Password";
+        this.errorsFlag2 = false;
       } else {
         // if password has less than 6 characters, set the error to be shown
         this.errors.passwordError = this.passwordError;
+        this.errorsFlag2 = true;
       }
     };
   
@@ -88,10 +99,13 @@ class Validator {
     validateRepeatPassword = (password, repeatPassword) => {
       if (password === repeatPassword) {
         // remove the error message
-        delete this.errors.repeatPasswordError;
+        //delete this.errors.repeatPasswordError;
+        this.errors.repeatPasswordError = "Repeat password";
+        this.errorsFlag3 = false;
       } else {
         // if passwords are not matching, set the error to be shown
         this.errors.repeatPasswordError = this.repeatPasswordError;
+        this.errorsFlag3 = true;
       }
     };
   

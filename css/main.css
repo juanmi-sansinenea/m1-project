@@ -50,6 +50,20 @@ h1 {
     position: fixed; 
     bottom: 0;
     display: flex;
+    flex-direction: row;
+
+}
+.play-stop-btn{
+
+}
+.play-stop-btn img{
+    width: 60px;
+}
+.ctrls-container{
+
+}
+.ctrls-container img{
+    width: 60px;
 }
 /* ---Authors---------------------------------- */
 .author {

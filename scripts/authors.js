@@ -1,40 +1,52 @@
 "use strict";
 
-
-
-
 const quotes = "https://programming-quotes-api.herokuapp.com/quotes/lang/en";
 fetch(quotes)
 .then((response) => {
-  console.log(response);
-    return response.json();
+  return response.json();
 })
 .then((data) => {
-  const quotesArr = data;
-  // Get authors array
-  const authorsArr = quotesArr.map ((el)=>{
-    const author = el.author;
-    return author;
-  });
-  // Get unique authors array
-  const authorsUniquesArr = [];
-  authorsArr.forEach((word)=>{
-    if (!authorsUniquesArr.includes(word)){
-      authorsUniquesArr.push(word)
-    }else if (authorsUniquesArr.includes(word)){
-      const repeatedStringsIndex = authorsUniquesArr.indexOf(word);
-      authorsUniquesArr.splice(repeatedStringsIndex, 1)
-    }
-  });
-  // Sort authors list alphabetically 
-  authorsUniquesArr.sort ()
-  console.log(authorsUniquesArr);
+  const authors = new Authors (data);
+  authors.printListAZ();
 })
 .catch ((error) => {
   console.log ("API loading error.", error);
 });
 
-
-
-
-
+class Authors {
+  constructor(quotesArr){
+    this.quotesArr = quotesArr;
+    this.authorsArr = this.quotesArr.map ((el)=>{
+        const author = el.author;
+        return author;
+    });
+    this.uniqueAuthorsArr = [];
+    this.authorsArr.forEach((word)=>{
+      if (!this.uniqueAuthorsArr.includes(word)){
+        this.uniqueAuthorsArr.push(word);
+      }else if (this.uniqueAuthorsArr.includes(word)){
+        this.repeatedStringsIndex = this.uniqueAuthorsArr.indexOf(word);
+        this.uniqueAuthorsArr.splice(this.repeatedStringsIndex, 1);
+      }
+    });
+    this.here = document.querySelector(".authors-container");
+  }
+  printListAZ = (()=>{
+      this.uniqueAuthorsArr.sort().forEach ((el)=>{
+      this.row = document.createElement ("div");
+      this.row.textContent = el;
+      this.row.className = "author";
+      this.here.appendChild(this.row);
+    });
+  });
+  printListZA = (()=>{
+    this.uniqueAuthorsArr.sort().reverse().forEach ((el)=>{
+    this.row = document.createElement ("div");
+    this.row.textContent = el;
+    this.row.className = "author";
+    this.here.appendChild(this.row);
+  });
+});
+  
+  
+}

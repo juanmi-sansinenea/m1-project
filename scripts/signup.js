@@ -23,90 +23,84 @@ class Signup {
       this.buttonInput = document.querySelector("#signup-button");
     }
     // handle the email input
-    handleEmailInput = () => {
-        //const emailInput = event.target;
+    handleEmailInput = (event) => {
+        const emailInput = event.target;
         const email = signup.emailInput.value;
         validator.validateValidEmail(email);
         validator.validateUniqueEmail(email);
-        //this.setErrorMessages();  
-        this.handlePasswordInput(); 
+        signup.emailLabel.textContent = validator.errors.invalidEmailError + validator.errors.emailExistsError; 
+        console.log(validator.errors);
+        
     };
     // handle the password input
-    handlePasswordInput = () => {
-        //const passwordInput = event.target;
+    handlePasswordInput = (event) => {
+        const passwordInput = event.target;
         const repeatPasswordInput = signup.repeatPasswordInput;
         const password = signup.passwordInput.value;
         const repeatPassword = signup.repeatPasswordInput.value;
         validator.validatePassword(password);
         validator.validateRepeatPassword(password, repeatPassword);
-        //this.setErrorMessages();
-        this.handleRepeatPasswordInput();
+        signup.passwordLabel.textContent = validator.errors.passwordError;
+        console.log(validator.errors);
+       
     };
     // handle the repeat-password input
-    handleRepeatPasswordInput = () => {
-        //const passwordInput = event.target;
+    handleRepeatPasswordInput = (event) => {
+        const passwordInput = event.target;
         const repeatPasswordInput = signup.repeatPasswordInput;
         const password = signup.passwordInput.value;
         const repeatPassword = signup.repeatPasswordInput.value;
         validator.validatePassword(password);
         validator.validateRepeatPassword(password, repeatPassword);
-        this.setErrorMessages();
+        signup.repeatPasswordLabel.textContent = validator.errors.repeatPasswordError;
+        console.log(validator.errors);
     };
     // used to show messages below the Signup form ----!!!!!!!CHANGE TO LABEL
-    setErrorMessages = () => {
-        // Clear previous messages, so that they don't add up
-        //this.errorsWrapper.innerHTML = "";
+    setErrorMessageEmail = (event) => {
         const errorsObj = validator.getErrors();
-        // returns an array of objects values (only error strings)
         const errorStringsArr = Object.values( errorsObj );
         console.log(errorStringsArr);
-        if (type === "email") {
-            signup.emailLabel.textContent = validator.errors.invalidEmailError;
-        }
-        //if (type === "password"){
-            signup.passwordLabel.textContent = validator.errors.passwordError;
-        //}
-        //if (type === "repeat"){
-            signup.repeatPasswordLabel.textContent = validator.errors.repeatPasswordError;
-        //}   
-
-
-        
-        /*errorStringsArr.forEach( (str) => {
-        const p = document.createElement('p');
-        p.textContent = str;
-        this.errorsWrapper.appendChild(p);
-        })*/
+        signup.emailLabel.textContent = validator.errors.invalidEmailError;
+        signup.passwordLabel.textContent = validator.errors.passwordError;
+        signup.repeatPasswordLabel.textContent = validator.errors.repeatPasswordError;
+    
     }
 
     // handle the sending of the data ( on submit )
     saveData = (event) => {
+
         // Prevent the default behaviour of the form submit button which reloads the page
         event.preventDefault();
+        if (validator.errorsFlag0 === false && validator.errorsFlag1 === false && validator.errorsFlag2 === false && validator.errorsFlag3 === false){
+            // get the value from all of the inputs
+            const name = this.nameInput.value;
+            const email = this.emailInput.value;
+            const password = this.passwordInput.value;
 
-        // get the value from all of the inputs
-        const name = this.nameInput.value;
-        const email = this.emailInput.value;
-        const password = this.passwordInput.value;
+            // create the new user
+            const newUser = new User(name, email, password);
 
-        // create the new user
-        const newUser = new User(name, email, password);
+            // Save the user in the database
+            db.saveNewUser(newUser);
 
-        // Save the user in the database
-        db.saveNewUser(newUser);
-
-        // empty the form
-        this.nameInput.value = "";
-        this.emailInput.value = "";
-        this.passwordInput.value = "";
+            // empty the form
+            this.nameInput.value = "";
+            this.emailInput.value = "";
+            this.passwordInput.value = "";
+            this.repeatPasswordInput.value = "";
+            //
+            this.nameLabel.textContent = "Name";
+            this.emailLabel.textContent = "Email";
+            this.passwordLabel.textContent = "Password";
+            this.repeatPasswordLabel.textContent = "Repeat password";
+        }
     };
 
     addListeners = () => {
-        /*this.emailInput.addEventListener("input", this.handleEmailInput);
-        this.passwordInput.addEventListener("input", this.handlePasswordInput);
-        this.repeatPasswordInput.addEventListener("input", this.handleRepeatPasswordInput);
-        this.buttonInput.addEventListener("click", this.saveData);*/
-        this.buttonInput.addEventListener("click", this.handleEmailInput);
+        this.emailInput.addEventListener("blur", this.handleEmailInput);
+        this.passwordInput.addEventListener("blur", this.handlePasswordInput);
+        this.repeatPasswordInput.addEventListener("blur", this.handleRepeatPasswordInput);
+        this.buttonInput.addEventListener("click", this.saveData);
         
     }
 }

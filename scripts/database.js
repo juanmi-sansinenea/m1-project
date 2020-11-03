@@ -28,6 +28,7 @@ class Database {
     // save back the updated users array to localStorage
     const updatedUsersStr = JSON.stringify(updatedUsersArr);
     localStorage.setItem("users", updatedUsersStr);
+    window.location.href = '../index.html';
   };
 }
 
