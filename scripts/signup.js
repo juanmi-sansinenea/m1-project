@@ -111,5 +111,5 @@ class Signup {
 const signup = new Signup();
 
 // Add event listeners once the page and all the resources are loaded
-window.addEventListener('load', signup.addListeners )
+window.addEventListener('load', signup.addListeners);
 

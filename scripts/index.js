@@ -7,6 +7,7 @@ fetch(quotes, {})
 })
 .then((data) => {
     const quote = new Quote (data, 0, false);
+    quote.randomizeArr();
     quote.printCurrentQuote();
     quote.printCurrentAuthor();
     quote.printCurrentRating();
@@ -25,8 +26,9 @@ class Quote {
     this.isPlaying = isPlaying;
     //
     this.quoteSpace = document.querySelector(".quote");
-    this.authorSpace = document.querySelector(".author");
-    this.ratingSpace = document.querySelector(".heart-rating");
+    this.authorSpace = document.querySelector(".author-sign");
+    this.heartOn = document.querySelector(".heart-on");
+    this.heartOff = document.querySelector(".heart-off");
     //
     this.playStop = document.querySelector(".play-stop-btn");
     this.backBtn = document.querySelector(".back-btn");
@@ -34,8 +36,19 @@ class Quote {
     this.ctrls = document.querySelector(".ctrls-container");
     this.ctrls.style.visibility = "hidden";
   }
+  randomizeArr = (()=>{
+    let currentIndex = this.quotesArr.length, temporaryValue, randomIndex;
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = this.quotesArr[currentIndex];
+      this.quotesArr[currentIndex] = this.quotesArr[randomIndex];
+      this.quotesArr[randomIndex] = temporaryValue;
+    }
+    return this.quotesArr;
+  });
   printCurrentQuote = (()=>{
-    this.quoteSpace.textContent = this.quotesArr[this.currentRecord].en;
+    this.quoteSpace.textContent = `“${this.quotesArr[this.currentRecord].en}”`;
   });
   printCurrentAuthor = (()=>{
     console.log(this.quotesArr[this.currentRecord].author);
@@ -43,6 +56,30 @@ class Quote {
   });
   printCurrentRating = (()=>{
     console.log(this.quotesArr[this.currentRecord].rating);
+    if (this.quotesArr[this.currentRecord].rating > 0){
+      this.heartOn.textContent = "";
+      this.heartOff.textContent = "♥♥♥♥♥";
+    }
+    if (this.quotesArr[this.currentRecord].rating > 1){
+      this.heartOn.textContent = "♥";
+      this.heartOff.textContent = "♥♥♥♥";
+    }
+    if (this.quotesArr[this.currentRecord].rating > 2){
+      this.heartOn.textContent = "♥♥";
+      this.heartOff.textContent = "♥♥♥";
+    }
+    if (this.quotesArr[this.currentRecord].rating > 3){
+      this.heartOn.textContent = "♥♥♥";
+      this.heartOff.textContent = "♥♥";
+    }
+    if (this.quotesArr[this.currentRecord].rating > 4){
+      this.heartOn.textContent = "♥♥♥♥";
+      this.heartOff.textContent = "♥";
+    }
+    if (this.quotesArr[this.currentRecord].rating === 5){
+      this.heartOn.textContent = "♥♥♥♥♥";
+      this.heartOff.textContent = "";
+    }
   });
   togglePlay = (()=>{ 
     if (this.isPlaying === false){ 
@@ -58,7 +95,7 @@ class Quote {
     }
   });
   nextRecord = (()=>{
-    console.log("h")
+    
     if (this.currentRecord < this.quotesArr.length-1){
       this.currentRecord +=1;
     }else if (this.currentRecord === this.quotesArr.length-1){

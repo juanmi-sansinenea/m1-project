@@ -1,11 +1,29 @@
 /* CSS RESET */
 @import "reset.css";
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Montserrat:ital,wght@0,600;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700&display=swap');
 /* DEFAULT STYLES */
 body{
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
+    font-weight: 600;
+}
+a:link {
+    text-decoration: none;
+    color: black;
+}
+  
+a:visited {
+text-decoration: none;
+}
+
+a:hover {
+text-decoration: underline;
+color: #c4c4c4;
+}
+
+a:active {
+/* text-decoration: underline; */
 }
 
 /* MEDIA QUERIES */
@@ -16,30 +34,91 @@ body{
     height: 80px;
     background-color: white;
     position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 #logo {
-    width: 64px;
+    height: 40px;
+    padding: 20px;
 }
 #burger {
-    width: 44px;
+    height: 27px;
+    padding: 20px;
+}
+#x-cls {
+    height: 27px;
+    padding: 20px;
 }
 /* ------------------------------------- */
 .buffer{
-    height: 100px;
+    height: 25vh;
 }
 .manifesto-container{
-    background-color: bisque;
     height:100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+}
+.article-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 }
 article{
-    background-color: azure
+    width: 80%;
+    margin-right: 5vw;
 }
 h1 {
     font-family: 'DM Serif Display', serif;
-    font-size: 10vw;
+    font-style: italic;
+    font-size: 2.3rem;
+    line-height: 3rem;
+    text-indent: -1rem;
+    padding-bottom: 3rem;
+}
+.no-indent {
+    text-indent: 0rem;
+}
+.heart-rating {
+    display: flex;
+    justify-content: flex-end;
+}
+.heart-on {
+    font-size: 1rem;
+    letter-spacing: 0.2rem;
+}
+.heart-off {
+    font-size: 1rem;
+    letter-spacing: 0.2rem;
+    color: #c4c4c4;
+}
+.contact-container {
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+}
+.contact-container div {
+    background-color: black;
+    border-radius: 30px;
+    padding: 20px 30px;
+}
+.contact-container a {
+    color: white;
+}
+.footnote { 
+    position: fixed; 
+    bottom: 0;
+    display: flex;
+    bottom: 0;
+    width:80%;
+    margin: 40px 0;
+}
+.footnote span{ 
+    font-weight: 300;
 }
 /* ------------------------------------- */
 
@@ -50,24 +129,34 @@ h1 {
     position: fixed; 
     bottom: 0;
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
 
 }
 .play-stop-btn{
-
+    display: flex;
+    padding: 10px 20px;
 }
 .play-stop-btn img{
     width: 60px;
 }
 .ctrls-container{
-
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
 }
 .ctrls-container img{
     width: 60px;
+    margin-left: 8px;
 }
 /* ---Authors---------------------------------- */
+.authors-container {
+    width: 80%;
+    margin-left: 10vw
+}
 .author {
     height: 3rem;
+    font-size: 1.5rem;
+    text-decoration: none;
 }
 
 /* From 768px and up */
@@ -76,4 +165,50 @@ h1 {
 
 /* From 1024px and up */
 @media (min-width: 1024px) {
+}
+
+/* ---Menu-Page---------------------------------- */
+#menu-page-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+#menu-page {
+    font-size: 1.5rem;
+    text-align: center;
+    line-height: 2rem;
+    text-decoration: none;
+}
+/* ---Sign-up---------------------------------- */
+form {
+    font-weight: 600;
+    
+}
+input {
+    width: 70vw;
+    font-size: 1.2rem;
+    font-family: 'Montserrat';
+    padding: 20px 30px;
+    background-color: #c4c4c4;
+    border: 0;
+    border-radius: 30px;
+    margin: 10px 0 30px 10px;
+}
+label {
+    margin-left: 15px;
+    font-size: 1.2rem;
+    text-align: left;
+}
+#signup-button{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    background-color: black;
+    width: 40vw;
+    
+}
+.buffer-form{
+    height: 7vh;
 }
