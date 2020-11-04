@@ -8,15 +8,48 @@ body{
     font-size: 16px;
     font-weight: 600;
 }
-/* .general {
-    background-color: #ffe6dc;
-    color: #012f2f;  
-} */
-/* .general:hover{
-    background-color: tomato;
-    color: white;
-    transition: all 1s;
-} */
+.general0 {
+    background-color: #7a5ec3;
+    color: #43e8e3;  
+} 
+.general1{
+    background-color: #c5f9fd;
+    color: #f84241;
+}
+.general2{
+    background-color: #f84241;
+    color: #40279b;
+}
+.general3{
+    background-color: #fccd04;
+    color: #7a5ec3;
+}
+.general4{
+    background-color: #f04a67;
+    color: #c5f9fd;
+}
+.general5{
+    background-color: #ffa6b7;
+    color: #40279b;
+}
+.general6{
+    background-color: #1d2a73;
+    color: #ff6666;
+}
+.general7{
+    background-color: #7a5ec3;
+    color: #c5f9fd;
+}
+.general8{
+    background-color: #7a5ec3;
+    color: #c5f9fd;
+}
+.general9{
+    background-color: #fccd04;
+    color: #40279b;
+}
+
+
 a:link {
     text-decoration: none;
     color: black;
@@ -74,9 +107,28 @@ a:active {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-
+    align-items: center; 
 }
+
+.whatever {
+    width: 100px;
+    height: 100px;
+    background-color: tomato;
+}
+.whatever div {
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    animation: 1s ease-out 0s infinite slide;
+}
+@keyframes slide {
+    from { opacity: 0% }
+    to { opacity: 100% }
+}
+.slidein-animation-on {
+    animation: 0.7s ease-out 0s slide;
+} 
+
 article{
     width: 80%;
     margin-right: 5vw;
@@ -130,6 +182,29 @@ h1 {
     font-weight: 300;
 }
 /* ------------------------------------- */
+.progress{
+    background-color:rgba(125, 125, 125, 0.0);
+    width: 100vw;
+    position: fixed;
+    bottom: 80px;
+}
+@keyframes progress {
+    from { width: 0vw; }
+    to   { width: 100vw; }
+}
+.progress-bar-on {
+    background-color: black;
+    height: 5px;
+    width: 0vw;
+    animation: 3s linear 0s infinite progress;
+}
+.progress-bar-off {
+    background-color: black;
+    height: 5px;
+    width: 0vw;
+    /* animation: 3s linear 0s infinite slidein; */
+}
+
 
 .bottom-nav {
     width: 100%;

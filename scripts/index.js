@@ -37,10 +37,29 @@ class Quote {
     this.ctrls.style.visibility = "hidden";
     //
     this.general = document.querySelector(".general");
-    
+    //this.colorCounter = 0;
+    //
+    this.progress = document.querySelector(".progress-bar-off");
+    this.slideinAnimation = document.querySelector(".slidein-animation-off");
+  }
+  initSlideIn(){
+    this.slideinAnimation.className = "slidein-animation-on";
+    this.intervalId2 = setInterval (this.clearSlideIn, 1000);
+  }
+  clearSlideIn = (()=>{
+    this.slideinAnimation.className = "slidein-animation-off"
+    clearInterval(this.intervalId2);
+  })
+  initProgress(){
+    this.progress.className = "progress-bar-on";
+  }
+  clearProgress(){
+    this.progress.className = "progress-bar-off";
   }
   changeColorScheme = (()=>{
-    //this.general.className = "general-0";
+    const rand = Math.floor(10*Math.random());
+    this.general.className = "general"+rand;
+    //this.general.className = "general"+this.colorCounter;
   });
 
   randomizeArr = (()=>{
@@ -58,11 +77,9 @@ class Quote {
     this.quoteSpace.textContent = `“${this.quotesArr[this.currentRecord].en}”`;
   });
   printCurrentAuthor = (()=>{
-    console.log(this.quotesArr[this.currentRecord].author);
     this.authorSpace.textContent = this.quotesArr[this.currentRecord].author;
   });
   printCurrentRating = (()=>{
-    console.log(this.quotesArr[this.currentRecord].rating);
     if (this.quotesArr[this.currentRecord].rating > 0){
       this.heartOn.textContent = "";
       this.heartOff.textContent = "♥♥♥♥♥";
@@ -90,15 +107,20 @@ class Quote {
   });
   togglePlay = (()=>{ 
     if (this.isPlaying === false){ 
+      //when stopped start again (button to say stop)
       this.isPlaying = true;
       this.playStop.innerHTML = `<img  src="images/stop-btn.svg" alt="stop">`
       this.ctrls.style.visibility = "hidden";
-      this.intervalId = setInterval (this.nextRecord, 2000);
+      this.intervalId = setInterval (this.nextRecord, 3000);
+      this.initProgress();
+
     } else {
+      //when playing then stop (button to say play)
       this.isPlaying = false;
       this.playStop.innerHTML = `<img  src="images/play-btn.svg" alt="play">`
       this.ctrls.style.visibility = "visible";
       clearInterval(this.intervalId);
+      this.clearProgress();
     }
   });
   nextRecord = (()=>{
@@ -107,10 +129,12 @@ class Quote {
     }else if (this.currentRecord === this.quotesArr.length-1){
       this.currentRecord = 0;
     }
+    //this.colorCounter++
     this.printCurrentQuote();
     this.printCurrentAuthor();
     this.printCurrentRating();
     this.changeColorScheme();
+    this.initSlideIn();
   });
   prevRecord = (()=>{
     if (this.currentRecord > 0){
@@ -118,9 +142,12 @@ class Quote {
     }else if (this.currentRecord === 0){
       this.currentRecord = this.quotesArr.length-1;
     }
+    //this.colorCounter--;
     this.printCurrentQuote();
     this.printCurrentAuthor();
     this.printCurrentRating();
+    this.changeColorScheme();
+    this.initSlideIn();
   });
   addListeners = (()=>{
     this.playStop.addEventListener("click", this.togglePlay);
