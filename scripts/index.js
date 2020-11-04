@@ -35,7 +35,14 @@ class Quote {
     this.nextBtn = document.querySelector(".next-btn");
     this.ctrls = document.querySelector(".ctrls-container");
     this.ctrls.style.visibility = "hidden";
+    //
+    this.general = document.querySelector(".general");
+    
   }
+  changeColorScheme = (()=>{
+    //this.general.className = "general-0";
+  });
+
   randomizeArr = (()=>{
     let currentIndex = this.quotesArr.length, temporaryValue, randomIndex;
     while (0 !== currentIndex) {
@@ -95,7 +102,6 @@ class Quote {
     }
   });
   nextRecord = (()=>{
-    
     if (this.currentRecord < this.quotesArr.length-1){
       this.currentRecord +=1;
     }else if (this.currentRecord === this.quotesArr.length-1){
@@ -104,6 +110,7 @@ class Quote {
     this.printCurrentQuote();
     this.printCurrentAuthor();
     this.printCurrentRating();
+    this.changeColorScheme();
   });
   prevRecord = (()=>{
     if (this.currentRecord > 0){

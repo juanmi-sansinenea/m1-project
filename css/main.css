@@ -8,6 +8,15 @@ body{
     font-size: 16px;
     font-weight: 600;
 }
+/* .general {
+    background-color: #ffe6dc;
+    color: #012f2f;  
+} */
+/* .general:hover{
+    background-color: tomato;
+    color: white;
+    transition: all 1s;
+} */
 a:link {
     text-decoration: none;
     color: black;
@@ -32,11 +41,11 @@ a:active {
 .top-nav {
     width: 100%;
     height: 80px;
-    background-color: white;
     position: fixed;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: white;
 }
 #logo {
     height: 40px;
@@ -130,6 +139,7 @@ h1 {
     bottom: 0;
     display: flex;
     justify-content: space-between;
+    background-color: white
 
 }
 .play-stop-btn{
@@ -184,7 +194,11 @@ h1 {
 /* ---Sign-up---------------------------------- */
 form {
     font-weight: 600;
-    
+}
+form a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-left: 15vw;
 }
 input {
     width: 70vw;
@@ -207,6 +221,15 @@ label {
     color: white;
     background-color: black;
     width: 40vw;
+    margin-left: 35vw;
+}
+#login-button{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    background-color: black;
+    width: 40vw;
+    margin-left: 10vw;
     
 }
 .buffer-form{
