@@ -8,6 +8,7 @@ fetch(quotes)
 .then((data) => {
   const authors = new Authors (data);
   authors.printListAZ();
+  authors.addListeners();
 })
 .catch ((error) => {
   console.log ("API loading error.", error);
@@ -30,6 +31,9 @@ class Authors {
       }
     });
     this.here = document.querySelector(".authors-container");
+    this.topNav = document.querySelector(".top-nav");
+    this.sortAZ = document.querySelector(".sort-az");
+    this.sortZA = document.querySelector(".sort-za");
   }
   printListAZ = (()=>{
       this.uniqueAuthorsArr.sort().forEach ((el)=>{
@@ -37,16 +41,28 @@ class Authors {
       this.row.textContent = el;
       this.row.className = "author";
       this.here.appendChild(this.row);
-    });
+    }); 
   });
   printListZA = (()=>{
-    this.uniqueAuthorsArr.sort().reverse().forEach ((el)=>{
-    this.row = document.createElement ("div");
-    this.row.textContent = el;
-    this.row.className = "author";
-    this.here.appendChild(this.row);
+      this.uniqueAuthorsArr.sort().reverse().forEach ((el)=>{
+      this.row = document.createElement ("div");
+      this.row.textContent = el;
+      this.row.className = "author";
+      this.here.appendChild(this.row);
+    });
   });
-});
-  
-  
+  clearAndPrintAZ = (()=>{
+    this.here.innerHTML = "";
+    this.printListAZ();
+  })
+  clearAndPrintZA = (()=>{
+    this.here.innerHTML = "";
+    this.printListZA();
+  })
+
+  addListeners = (()=>{
+    this.sortAZ.addEventListener("click", this.clearAndPrintAZ);
+    this.sortZA.addEventListener("click", this.clearAndPrintZA);
+  });
 }
+  
