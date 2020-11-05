@@ -35,6 +35,18 @@ a:hover {
 a:active {
 /* text-decoration: underline; */
 }
+
+.overlay {
+    position: fixed;
+    top: 0px;
+    width: 100vw;
+    height: 100vw;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+}
 /*---COLOR-SCHEME-0---------------*/
 .general0 {
     background-color: #7a5ec3;
@@ -378,6 +390,9 @@ h1 {
     padding: 25px 15px 25px 30px;
     border-radius: 60px 0 0 60px;
     margin: 0 1px;
+}
+.sort-az a {
+    color: #43e8e3;
 }
 .sort-za {
     background-color: #ff6666;

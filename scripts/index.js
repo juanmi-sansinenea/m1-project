@@ -7,6 +7,7 @@ fetch(quotes, {})
 })
 .then((data) => {
     const quote = new Quote (data, 0, false);
+    quote.filterArrByRate();
     quote.randomizeArr();
     quote.printCurrentQuote();
     quote.printCurrentAuthor();
@@ -42,7 +43,62 @@ class Quote {
     //
     this.progress = document.querySelector(".progress-bar-off");
     this.slideinAnimation = document.querySelector(".slidein-animation-off");
+    //
+    this.rateFilter = parseInt(window.location.search.charAt(6));
+    this.filterBtn = document.querySelector(".filter-btn");
+    this.overlayContainer = document.querySelector(".overlay-container");
+    this.radio = document.querySelector("radio");
+    
   }
+  filterArrByRate = (()=>{
+
+    // if (!this.rateFilter || this.rateFilter===undefined){
+    //   this.rateFilter = 5;
+    // }
+    if (this.rateFilter === 5){
+      this.quotesArr = this.quotesArr.filter((el)=>{
+        if (Math.floor(el.rating) === 5){
+          return true;
+        } else {
+          return false;
+        }
+      });
+    } else if (this.rateFilter === 4){
+      this.quotesArr = this.quotesArr.filter((el)=>{
+        if (Math.floor(el.rating) === 4){
+          return true;
+        } else {
+          return false;
+        }
+      });
+    } else if (this.rateFilter === 3){
+      this.quotesArr = this.quotesArr.filter((el)=>{
+        if (Math.floor(el.rating) === 3){
+          return true;
+        } else {
+          return false;
+        }
+      });
+      console.log(this.quotesArr.length);
+    } else if (this.rateFilter === 2){
+      this.quotesArr = this.quotesArr.filter((el)=>{
+        if (Math.floor(el.rating) === 2){
+          return true;
+        } else {
+          return false;
+        }
+      });
+    } else if (this.rateFilter === 1){
+      this.quotesArr = this.quotesArr.filter((el)=>{
+        if (Math.floor(el.rating) === 1){
+          return true;
+        } else {
+          return false;
+        }
+      });
+    }
+    console.log(this.quotesArr.length)
+  });
   initSlideIn(){
     this.slideinAnimation.className = "slidein-animation-on";
     this.intervalId2 = setInterval (this.clearSlideIn, 1000);
@@ -91,6 +147,7 @@ class Quote {
   });
   printCurrentQuote = (()=>{
     this.quoteSpace.textContent = `“${this.quotesArr[this.currentRecord].en}”`;
+    this.quoteSpace.class
   });
   printCurrentAuthor = (()=>{
     this.authorSpace.textContent = this.quotesArr[this.currentRecord].author;
@@ -167,10 +224,58 @@ class Quote {
     this.changeColorScheme();
     this.initSlideIn();
   });
+  openOverlay =(()=>{
+    document.body.innerHTML = `
+<div class = "overlay">
+    <nav>
+        <div class = "top-nav">
+            <a href="about.html"><img id="logo" src="images/pg-logo.svg" style="display: none;"></a>
+            <a href="index.html" ><img id="burger" src = "images/x-cls.svg"></a>
+        </div>
+    </nav>
+    <div class="manifesto-container">
+        <form action="" method="get">
+            <div>
+                <input type="radio" id="5hearts" name="rate" value="5" checked>
+                <label for="rate-filter">♥♥♥♥♥</label>
+            </div>
+
+            <div>
+                <input type="radio" id="4hearts" name="rate" value="4">
+                <label for="rate-filter">♥♥♥♥</label>
+            </div>
+
+            <div>
+                <input type="radio" id="3hearts" name="rate" value="3">
+                <label for="rate-filter">♥♥♥</label>
+            </div>
+
+            <div>
+                <input type="radio" id="2hearts" name="rate" value="2">
+                <label for="rate-filter">♥♥</label>
+            </div>
+
+            <div>
+                <input type="radio" id="1hearts" name="rate" value="1">
+                <label for="rate-filter">♥</label>
+            </div>
+            <br>
+            <div>Filter</div>
+            <input id="filter-submit" type="submit" value="Filter">
+        </form>
+    </div>
+</div>`;
+
+
+
+
+  });
+
   addListeners = (()=>{
     this.playStop.addEventListener("click", this.togglePlay);
     this.backBtn.addEventListener("click", this.prevRecord);
     this.nextBtn.addEventListener("click", this.nextRecord);
+    this.filterBtn.addEventListener("click", this.openOverlay);
   });
 }
 
