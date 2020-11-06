@@ -238,7 +238,7 @@ class Quote {
     <nav>
         <div class = "top-nav">
             <a href="about.html"><img id="logo" src="images/pg-logo.svg" style="display: none;"></a>
-            <a href="index.html" ><img id="burger" src = "images/x-cls.svg"></a>
+            <a href="index.html" ><img id="x-cls" src = "images/x-cls.svg"></a>
         </div>
     </nav>
     <div class="manifesto-container">
