@@ -23,6 +23,7 @@ fetch(quotes, {})
 class Quote {
   constructor (quotesArr, currentRecord, isPlaying){
     this.quotesArr = quotesArr;
+    this.quotesArrSafeCopy = this.quotesArr
     this.currentRecord = currentRecord;
     this.isPlaying = isPlaying;
     //
@@ -96,8 +97,18 @@ class Quote {
           return false;
         }
       });
+    } else if (this.rateFilter === 0){
+      this.quotesArr = this.quotesArr.filter((el)=>{
+        if (Math.floor(el.rating) === 0){
+          return true;
+        } else {
+          return false;
+        }
+      });
+    } else if (this.rateFilter === "none"){
+      this.quotesArr = this.quotesArrSafeCopy;
     }
-    console.log(this.quotesArr.length)
+  
   });
   initSlideIn(){
     this.slideinAnimation.className = "slidein-animation-on";
@@ -114,7 +125,7 @@ class Quote {
     this.progress.className = "progress-bar-off";
   }
   changeColorScheme = (()=>{
-    const rand = Math.floor(9*Math.random());
+    this.colorCounter = Math.floor(9*Math.random()); //!!! Just uncomment this line for a sequential colour play
     //this.general.className = "general"+rand; // REF-MakeRandom
     //this.navColor.className = "nav-color"+rand; //REF-MakeRandom
     // REF-MakeRandom: remember!! change this.colorCounter by rand in the ifs below
@@ -153,27 +164,24 @@ class Quote {
     this.authorSpace.textContent = this.quotesArr[this.currentRecord].author;
   });
   printCurrentRating = (()=>{
-    if (this.quotesArr[this.currentRecord].rating > 0){
-      this.heartOn.textContent = "";
-      this.heartOff.textContent = "♥♥♥♥♥";
-    }
-    if (this.quotesArr[this.currentRecord].rating > 1){
+    
+    if (Math.floor(this.quotesArr[this.currentRecord].rating) === 1){
       this.heartOn.textContent = "♥";
       this.heartOff.textContent = "♥♥♥♥";
     }
-    if (this.quotesArr[this.currentRecord].rating > 2){
+    if (Math.floor(this.quotesArr[this.currentRecord].rating) === 2){
       this.heartOn.textContent = "♥♥";
       this.heartOff.textContent = "♥♥♥";
     }
-    if (this.quotesArr[this.currentRecord].rating > 3){
+    if (Math.floor(this.quotesArr[this.currentRecord].rating) === 3){
       this.heartOn.textContent = "♥♥♥";
       this.heartOff.textContent = "♥♥";
     }
-    if (this.quotesArr[this.currentRecord].rating > 4){
+    if (Math.floor(this.quotesArr[this.currentRecord].rating) === 4){
       this.heartOn.textContent = "♥♥♥♥";
       this.heartOff.textContent = "♥";
     }
-    if (this.quotesArr[this.currentRecord].rating === 5){
+    if (Math.floor(this.quotesArr[this.currentRecord].rating) === 5){
       this.heartOn.textContent = "♥♥♥♥♥";
       this.heartOff.textContent = "";
     }
@@ -235,32 +243,27 @@ class Quote {
     </nav>
     <div class="manifesto-container">
         <form action="" method="get">
-            <div>
-                <input type="radio" id="5hearts" name="rate" value="5" checked>
-                <label for="rate-filter">♥♥♥♥♥</label>
-            </div>
+            <div class="filter-form-container">
+                <input class="radio" type="radio" id="5hearts" name="rate" value="5">
+                <label for="rate-filter">♥ ♥ ♥ ♥ ♥</label><br>
 
-            <div>
-                <input type="radio" id="4hearts" name="rate" value="4">
-                <label for="rate-filter">♥♥♥♥</label>
-            </div>
+                <input class="radio" type="radio" id="4hearts" name="rate" value="4">
+                <label for="rate-filter">♥ ♥ ♥ ♥</label><br>
 
-            <div>
-                <input type="radio" id="3hearts" name="rate" value="3">
-                <label for="rate-filter">♥♥♥</label>
-            </div>
+                <input class="radio" type="radio" id="3hearts" name="rate" value="3">
+                <label for="rate-filter">♥ ♥ ♥</label><br>
 
-            <div>
-                <input type="radio" id="2hearts" name="rate" value="2">
-                <label for="rate-filter">♥♥</label>
-            </div>
+                <input class="radio" type="radio" id="2hearts" name="rate" value="2">
+                <label for="rate-filter">♥ ♥</label><br>
 
-            <div>
-                <input type="radio" id="1hearts" name="rate" value="1">
-                <label for="rate-filter">♥</label>
+                <input class="radio" type="radio" id="1hearts" name="rate" value="1">
+                <label for="rate-filter">♥</label><br>
+
+                <input class="radio" type="radio" id="1hearts" name="rate" value="reset" checked>
+                <label for="rate-filter">Reset / none </label><br>
             </div>
             <br>
-            <div>Filter</div>
+            
             <input id="filter-submit" type="submit" value="Filter">
         </form>
     </div>
